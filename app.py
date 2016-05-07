@@ -1,14 +1,18 @@
-from flask import Flask, render_template, request, redirect
+import os
+from flask import Flask
 
+# initialization
 app = Flask(__name__)
+app.config.update(
+    DEBUG = True,
+)
 
-@app.route('/')
-def main():
-  return redirect('/index')
+# controllers
+@app.route("/")
+def hello():
+    return "Hello from Python!"
 
-@app.route('/index')
-def index():
-  return render_template('index.html')
-
-if __name__ == '__main__':
-  app.run(port=33507)
+# launch
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
