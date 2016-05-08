@@ -1,18 +1,57 @@
-import os
-from flask import Flask
+from flask import Flask, render_template, request, redirect
 
-# initialization
+import fetching                 # my fetching.py file
+
 app = Flask(__name__)
+
 app.config.update(
-    DEBUG = True,
+    DEBUG=True,
 )
 
-# controllers
-@app.route("/")
-def hello():
-    return "Hello from Python!"
 
-# launch
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
+
+@app.route('/')
+def main():
+    return render_template('index.html')
+
+# @app.route('/index')
+# def index():
+#     return render_template('index.html')
+
+@app.route('/live_buses')
+def live_buses():
+    nyc = fetching.nyc_current()
+    plotdf = nyc[['MonitoredVehicleJourney_PublishedLineName',
+                  'MonitoredVehicleJourney_VehicleLocation_Latitude',
+                  'MonitoredVehicleJourney_VehicleLocation_Longitude']]
+
+    # add this for plot (may not be using yet)
+    plotdf = plotdf.assign(intensity=0.2);
+    #data = list(plotdf.itertuples())
+    #data = plotdf.values.tolist()
+    data = plotdf[['MonitoredVehicleJourney_VehicleLocation_Latitude',
+                   'MonitoredVehicleJourney_VehicleLocation_Longitude']].values.tolist()
+    return render_template('live_buses.html', data=data)
+
+@app.route('/live_example')
+def live_example():
+    return render_template('live_example.html')
+
+
+@app.route('/page1')
+def page1():
+  return redirect('/')
+
+@app.route('/page2')
+def page2():
+  return redirect('/')
+
+@app.route('/page3')
+def page3():
+  return redirect('/')
+
+
+
+
+if __name__ == '__main__':
+    app.run(port=33507)

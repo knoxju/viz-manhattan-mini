@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head><!-- BEGIN HEAD -->
+
+	<title>Manhattan Vizualisation{% block title %}{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="buses, boss!">
+	<meta name="keywords" content="best buses boss nyc carto">
+	<meta name="author" content="paul">
+	<meta charset="utf-8">
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+	<!-- <link rel="shortcut icon" href="{{ url_for('static', filename='ico/favicon.ico') }}"> -->
+
+	{% block head %}
+	{% endblock %}
+
+    </head><!-- END HEAD -->
+
+    <body><!-- BEGIN BODY -----------------  -->
+
+	{% block navbar %}
+	<div class="navbar navbar-static-top navbar-default">
+	    <div class="container">
+		<a class="navbar-brand" href="/">HOME</a>
+	    </div>
+	</div>
+
+	{% endblock %}
+
+
+	<div class="container page">
+            <div class="content">
+		{% block content %}
+		{% endblock %}
+	    </div>
+            <hr>
+            {% block footer %}
+            <footer class="footer" style="text-align:center">
+		<p><a href="https://github.com/venamax/viz-manhattan-mini.git" target="_blank">Source</a></p>
+            </footer>
+            {% endblock %}
+	</div>
+
+	
+	{% block js_footer %}
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	{% endblock %}
+
+    </body><!-- END BODY ---------------  -->
+</html>
+Status API Training Shop Blog About
